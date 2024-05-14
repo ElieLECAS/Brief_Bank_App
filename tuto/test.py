@@ -14,4 +14,4 @@ try:
     conn = engine.connect()
     print('Success!')
 except Exception as ex:
-    print('ex')
+    print(ex)
