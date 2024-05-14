@@ -18,15 +18,15 @@ class Account(Base):
 	author = Column(String)
 	published_date = Column(DateTime, default=datetime.now)
 	loans = relationship("Transaction", back_populates="account")  # Relation avec les emprunts
-	
-	
+
+
 	def __init__(self, title, author):
-	  self.title = title
+		self.title = title
 		self.author = author
-	
+
 	def __repr__(self):
 		return f"<Account(title='{self.title}', author='{self.author}')>"
-	
+
 	def borrow(self, borrower):
 		new_transaction = Transaction(account=self, borrower=borrower, borrow_date=datetime.now())
 		session = Session()
@@ -52,15 +52,15 @@ def main():
 	account1 = Account(title="1984", author="George Orwell")
 	session.add(account1)
 	session.commit()
-	
+
 	# Emprunt d'un livre
 	account1.borrow("Alice")
-	
+
 	# Vérification des emprunts
 	transactions = session.query(Transaction).all()
 	for transaction in transactions:
-	    print(f"{transaction.borrower} has borrowed {transaction.account.title} on {transaction.borrow_date}")
-	
+		print(f"{transaction.borrower} has borrowed {transaction.account.title} on {transaction.borrow_date}")
+
 	session.close()
 	
 if __name__ == "**main**":
