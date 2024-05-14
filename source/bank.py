@@ -18,17 +18,19 @@ class Account(Base):
     def create_account(self):
         pass
 
-    def deposit(self):
-        pass
+    def deposit(self, depos):
+        self.balance += depos
+        return
 
-    def withdraw(self):
-        pass
+    def withdraw(self, retrait):
+        self.balance += retrait
+        return
 
     def transfer(self):
         pass
 
     def get_balance(self):
-        pass
+        return self.balance
 
 class Transaction(Base):
     __tablename__ = 'transactions'
