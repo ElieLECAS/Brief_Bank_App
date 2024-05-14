@@ -1,10 +1,10 @@
-from init_db import Session
 from bank import Account
+from init_db import Session, Base , engine
+
 
 def main():
 	session = Session()
-	# Ajout de nouveaux livres
-	account1 = Account()
+	account1 = Account(balance=0)
 	session.add(account1)
 	session.commit()
 

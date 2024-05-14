@@ -6,15 +6,14 @@ from init_db import Base, Session, engine
 
 
 
-
 class Account(Base):
     __tablename__ = 'accounts'
     id = Column(Integer, primary_key=True)
     balance = Column(Float)
     # transactions = relationship("Transaction", back_populates="account")  # Relation avec les emprunts
 
-    def __init__(self):
-        self.balance = 0
+    def __init__(self, balance):
+        self.balance = balance
 
     def create_account(self):
         pass
@@ -30,8 +29,6 @@ class Account(Base):
 
     def get_balance(self):
         pass
-
-
 
 class Transaction(Base):
     __tablename__ = 'transactions'
