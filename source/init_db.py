@@ -4,4 +4,4 @@ from sqlalchemy.orm import declarative_base, sessionmaker, scoped_session, relat
 Base = declarative_base()
 engine = create_engine('sqlite:///bank_bdd.db')
 Session = scoped_session(sessionmaker(bind=engine))
-Base.metadata.create_all(engine)
+# Base.metadata.create_all(engine)

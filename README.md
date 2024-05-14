@@ -8,6 +8,8 @@ Cours:
 
 https://zippy-twig-11a.notion.site/Les-tests-en-python-d-mo-Pytest-2c1f98997fd54a57a8df6dd34da32ae1
 
+https://www.youtube.com/watch?v=g0-7TrVCNtg
+
 
 Exercices:
 
