@@ -31,8 +31,13 @@ class Account(Base):
 
 
 class Transaction(Base):
-	__tablename__ = 'transactions'
-	id = Column(Integer, primary_key=True)
+    __tablename__ = 'transactions'
+    id = Column(Integer, primary_key=True)
+    account_id = Column(Integer)
+    amount = Column(Float)
+    type = Column(String)
+    timestamp = Column(String)
+
 	# account_id = Column(Integer, ForeignKey('[account.id](http://account.id/)'))
 	# borrower = Column(String)
 	# borrow_date = Column(DateTime)
