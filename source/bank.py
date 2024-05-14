@@ -4,13 +4,15 @@ from datetime import datetime
 
 from init_db import Base, Session, engine
 
+# Base = declarative_base()
 
 
 class Account(Base):
-    __tablename__ = 'accounts'
+    __tablename__ = 'account'
     id = Column(Integer, primary_key=True)
     balance = Column(Float)
     # transactions = relationship("Transaction", back_populates="account")  # Relation avec les emprunts
+    transactions = relationship("Transaction", backref="accounts")
 
     def __init__(self, balance):
         self.balance = balance
@@ -33,11 +35,19 @@ class Account(Base):
         return self.balance
 
 class Transaction(Base):
-    __tablename__ = 'transactions'
+    __tablename__ = 'transaction'
     id = Column(Integer, primary_key=True)
     account_id = Column(Integer)
     amount = Column(Float)
     type = Column(String)
     timestamp = Column(String)
+    accounts = relationship("Account", backref="transactions")
+
+# class AccountTransactionAssociation(Base):
+#     tablename = 'account_transaction_association'
+#     account_id = Column(Integer, ForeignKey('account.id'), primary_key=True)
+#     transaction_id = Column(Integer, ForeignKey('transaction.id'), primary_key=True)
+#     account = relationship("Account", backref="account_transactions")
+#     transaction = relationship("Transaction", backref="transaction_accounts")
     
 Base.metadata.create_all(engine)
