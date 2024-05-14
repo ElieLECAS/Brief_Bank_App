@@ -15,18 +15,21 @@ class Account(Base):
 
     def __init__(self):
         self.balance = 0
-        # session = Session()
-        # session.add()
-        # session.commit()
 
-	# def __repr__(self):
-	# 	return f"<Account(title='{self.title}', author='{self.author}')>"
+    def create_account(self):
+        pass
 
-	# def borrow(self, borrower):
-	# 	new_transaction = Transaction(account=self, borrower=borrower, borrow_date=datetime.now())
-	# 	session = Session()
-	# 	session.add(new_transaction)
-	# 	session.commit()
+    def deposit(self):
+        pass
+
+    def withdraw(self):
+        pass
+
+    def transfer(self):
+        pass
+
+    def get_balance(self):
+        pass
 
 
 
@@ -37,10 +40,5 @@ class Transaction(Base):
     amount = Column(Float)
     type = Column(String)
     timestamp = Column(String)
-
-	# account_id = Column(Integer, ForeignKey('[account.id](http://account.id/)'))
-	# borrower = Column(String)
-	# borrow_date = Column(DateTime)
-	# account = relationship("Account", back_populates="transactions")
     
 Base.metadata.create_all(engine)
