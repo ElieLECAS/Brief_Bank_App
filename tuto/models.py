@@ -15,7 +15,7 @@ class Account(Base):
     balance = Column(Float)
     transactions = relationship("Transaction", back_populates="account")  # Relation avec les emprunts
 
-    def __init__(self, balance):
+    def __init__(self, balance=0):
         self.balance = balance
         session.add(self)
         # session.commit()
