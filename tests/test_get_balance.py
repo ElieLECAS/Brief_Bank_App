@@ -2,12 +2,34 @@ import pytest
 import tuto.models as models
 
 
-# Test_get_balance_initial
+
 
 class TestGetBalance:
     def setup_method(self):
         self.account = models.Account()
 
+    # Test_get_balance_initial
+        # Vérifier le solde initial lorsqu'un nouveau compte est créé.
+        # Créer un nouveau compte avec un solde initial spécifique.
+        # Utiliser get_balance pour vérifier que le solde retourné correspond au solde initial.
+        # Assurer que le résultat est exact sans avoir effectué de transactions.
+
 
     def test_get_balance_initial(self):
+        pass
+
+
+    def test_get_balance_after_deposit(self):
+        pass
+
+
+    def test_get_balance_after_withdrawal(self):
+        pass
+
+
+    def test_get_balance_after_failed_withdrawal(self):
+        pass
+
+
+    def test_get_balance_after_transfer(self):
         pass
