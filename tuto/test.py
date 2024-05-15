@@ -1,14 +1,8 @@
 from sqlalchemy import create_engine
+from sqlalchemy.orm import declarative_base, sessionmaker, scoped_session, relationship
 
-db_user = "test_alchemy"
-db_password = "test_alchemy"
-db_host = "localhost"
-db_port = "5432"
-db_name = "test_alchemy"
-
-db_url = f"postgresql+psycopg2://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
-
-engine = create_engine(db_url)
+engine = create_engine('sqlite:///bank_bdd.db')
+Session = scoped_session(sessionmaker(bind=engine))
 
 try:
     conn = engine.connect()

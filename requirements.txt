@@ -2,4 +2,3 @@ pytest
 requests
 sqlalchemy
 psycopg2-binary
-postgresql
