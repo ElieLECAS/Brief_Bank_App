@@ -17,6 +17,10 @@ try:
     account3 = Account(450.0)
     account4 = Account(20.0)
 
+    account1.deposit(333)
+    account1.withdraw(33)
+
+
     session.add(account1)
     session.add(account2)
     session.add(account3)
