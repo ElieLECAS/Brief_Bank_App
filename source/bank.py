@@ -11,8 +11,7 @@ class Account(Base):
     __tablename__ = 'account'
     id = Column(Integer, primary_key=True)
     balance = Column(Float)
-    # transactions = relationship("Transaction", back_populates="account")  # Relation avec les emprunts
-    transactions = relationship("Transaction", backref="accounts")
+    transactions = relationship("Transaction", back_populates="account")  # Relation avec les emprunts
 
     def __init__(self, balance):
         self.balance = balance
@@ -37,11 +36,11 @@ class Account(Base):
 class Transaction(Base):
     __tablename__ = 'transaction'
     id = Column(Integer, primary_key=True)
-    account_id = Column(Integer)
+    account_id = Column(Integer, ForeignKey("account.id"))
     amount = Column(Float)
     type = Column(String)
     timestamp = Column(String)
-    accounts = relationship("Account", backref="transactions")
+    accounts = relationship("Account", back_populates="transactions")
 
 # class AccountTransactionAssociation(Base):
 #     tablename = 'account_transaction_association'
