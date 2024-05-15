@@ -17,29 +17,25 @@ try:
     account3 = Account()
     account4 = Account()
 
-    account1.withdraw(33)
-
     transaction1 = Transaction()
-    transaction2 = Transaction()
-    transaction3 = Transaction()
-    transaction4 = Transaction()
-
     transaction1.deposit(account1, 34.0)
+
+    transaction2 = Transaction()
     transaction2.deposit(account2,100.0)
+
+    transaction3 = Transaction()
     transaction3.deposit(account3,150.0)
+
+    transaction4 = Transaction()
     transaction4.deposit(account4,222.0)
 
-    session.add(account1)
-    session.add(account2)
-    session.add(account3)
-    session.add(account4)
+    transaction5 = Transaction()
+    transaction5.withdraw(account1,4)
 
-    session.add(transaction1)
-    session.add(transaction2)
-    session.add(transaction3)
-    session.add(transaction4)
+    transfer1_2 = Transaction()
+    transfer1_2.transfer(account1,30,account2)
 
-    session.commit()
+    account2.get_balance()
 
 
 except Exception as ex:
