@@ -12,10 +12,10 @@ try:
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    account1 = Account()
-    account2 = Account()
-    account3 = Account()
-    account4 = Account()
+    account1 = Account(0)
+    account2 = Account(0)
+    account3 = Account(0)
+    account4 = Account(0)
 
     transaction1 = Transaction()
     transaction1.deposit(account1, 34.0)
@@ -33,9 +33,13 @@ try:
     transaction5.withdraw(account1,4)
 
     transfer1_2 = Transaction()
-    transfer1_2.transfer(account1,30,account2)
+    transfer1_2.transfer(account1,9,account2)
 
+    account1.get_balance()
     account2.get_balance()
+
+    session.commit()
+
 
 
 except Exception as ex:

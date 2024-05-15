@@ -15,10 +15,10 @@ class Account(Base):
     balance = Column(Float)
     transactions = relationship("Transaction", back_populates="account")  # Relation avec les emprunts
 
-    def __init__(self):
-        self.balance = 0.0
+    def __init__(self, balance):
+        self.balance = balance
         session.add(self)
-        session.commit()
+        # session.commit()
 
     def get_balance(self):
         print(self.balance)
@@ -37,23 +37,41 @@ class Transaction(Base):
         self.account_id = account.id
         self.amount = amount
         self.type = 'Deposit'
-        account.balance += amount
-        session.add(self)
-        session.commit()
-        return True
+        if amount > 0:
+            account.balance += amount
+            session.add(self)
+            # session.commit()
+            print(f'Dépot de {amount}€ effectué')
+            return True
+        else:
+            print(f'Dépot de {amount}€ annulé')
+            return False
+
     
     def withdraw(self, account, amount):
         self.account_id = account.id
         self.amount = amount
         self.type = 'Withdraw'
-        account.balance -= amount
-        session.add(self)
-        session.commit()
-        return True
+        if amount > 0 and account.balance >= amount:
+            account.balance -= amount
+            session.add(self)
+            # session.commit()
+            print(f'Retrait de {amount}€ validé')
+            return True
+        
+
+        else:
+            print(f'Retrait de {amount}€ annulé')
+            return False
+
 
     def transfer(self, expediteur, amount, destinataire):
         retrait = Transaction()
-        retrait.withdraw(expediteur, amount)
         depot = Transaction()
-        depot.deposit(destinataire, amount)
+
+        if retrait.withdraw(expediteur, amount):
+            depot.deposit(destinataire, amount)
+            print(f'Transfert de {amount}€ effectué')
+        else:
+            print(f'Transfert de {amount}€ annulé')
         return 
