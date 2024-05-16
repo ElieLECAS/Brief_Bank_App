@@ -5,7 +5,7 @@ on:
     branches: 
       - main
       - developp
-  pull_requests:
+  pull_request:
     branches: 
       - main
       - developp
