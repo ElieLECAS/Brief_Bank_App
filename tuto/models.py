@@ -34,7 +34,7 @@ class Transaction(Base):
     account = relationship("Account", back_populates="transactions")
 
     
-    def deposit(self, account, amount):
+    def deposit(self, account, amount, session):
         self.account_id = account.id
         self.amount = amount
         self.type = 'Deposit'
@@ -49,7 +49,7 @@ class Transaction(Base):
             return False
 
     
-    def withdraw(self, account, amount):
+    def withdraw(self, account, amount, session):
         self.account_id = account.id
         self.amount = amount
         self.type = 'Withdraw'
@@ -64,12 +64,12 @@ class Transaction(Base):
             return False
 
 
-    def transfer(self, expediteur, amount, destinataire):
+    def transfer(self, expediteur, amount, destinataire, session):
         retrait = Transaction()
         depot = Transaction()
 
-        if retrait.withdraw(expediteur, amount):
-            depot.deposit(destinataire, amount)
+        if retrait.withdraw(expediteur, amount, session):
+            depot.deposit(destinataire, amount, session)
             print(f'Transfert de {amount}€ effectué')
         else:
             print(f'Transfert de {amount}€ annulé')

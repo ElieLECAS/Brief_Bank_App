@@ -18,22 +18,22 @@ try:
     account4 = Account()
 
     transaction1 = Transaction()
-    transaction1.deposit(account1, 34.0)
+    transaction1.deposit(account1, 34.0, session)
 
     transaction2 = Transaction()
-    transaction2.deposit(account2,100.0)
+    transaction2.deposit(account2,100.0, session)
 
     transaction3 = Transaction()
-    transaction3.deposit(account3,150.0)
+    transaction3.deposit(account3,150.0, session)
 
     transaction4 = Transaction()
-    transaction4.deposit(account4,222.0)
+    transaction4.deposit(account4,222.0, session)
 
     transaction5 = Transaction()
-    transaction5.withdraw(account1,4)
+    transaction5.withdraw(account1,4, session)
 
     transfer1_2 = Transaction()
-    transfer1_2.transfer(account1,9,account2)
+    transfer1_2.transfer(account1,9,account2, session)
 
     account1.get_balance()
     account2.get_balance()

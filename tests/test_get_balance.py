@@ -1,7 +1,17 @@
 import pytest
 import tuto.models as models
 import random
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
+@pytest.fixture(scope='function')
+def db_session():
+    engine = create_engine('sqlite:///:memory:')
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    models.Base.metadata.create_all(engine)
+    yield session
+    session.close()
 
 class TestGetBalance:
     def setup_method(self):
@@ -28,13 +38,13 @@ class TestGetBalance:
         # Utiliser get_balance pour vérifier que le solde retourné inclut le montant déposé.
         # Vérifier que le solde retourné est égal au solde initial plus le montant du dépôt.
 
-    def test_get_balance_after_deposit(self):
+    def test_get_balance_after_deposit(self, db_session):
         initial = random.randint(100,1000000)
         account = models.Account(initial)
         self.transaction = models.Transaction()
         solde_depart = account.balance
         depot = 5
-        self.transaction.deposit(account=account,amount=depot)
+        self.transaction.deposit(account=account,amount=depot, session=db_session)
         assert account.get_balance() == solde_depart + depot
 
 
@@ -47,13 +57,13 @@ class TestGetBalance:
         # Utiliser get_balance pour vérifier que le solde retourné a été correctement déduit du montant retiré.
         # Vérifier que le solde retourné est égal au solde initial moins le montant du retrait.
 
-    def test_get_balance_after_withdrawal(self):
+    def test_get_balance_after_withdrawal(self, db_session):
         initial = random.randint(100,1000000)
         account = models.Account(initial)
         self.transaction = models.Transaction()
         solde_depart = account.balance
         retrait = random.randint(1,99)
-        self.transaction.withdraw(account=account,amount=retrait)
+        self.transaction.withdraw(account=account,amount=retrait, session=db_session)
         assert account.get_balance() == solde_depart - retrait
 
 
@@ -65,13 +75,13 @@ class TestGetBalance:
         # Vérifier que le solde retourné est toujours égal au solde initial avant la tentative de retrait.
 
 
-    def test_get_balance_after_failed_withdrawal(self):
+    def test_get_balance_after_failed_withdrawal(self, db_session):
         initial = random.randint(10,100)
         account = models.Account(initial)
         self.transaction = models.Transaction()
         solde_depart = account.balance
         retrait = random.randint(initial+1,initial+100000)
-        self.transaction.withdraw(account=account,amount=retrait)
+        self.transaction.withdraw(account=account,amount=retrait, session=db_session)
         assert account.get_balance() == solde_depart
 
 
@@ -88,7 +98,7 @@ class TestGetBalance:
 
 
         
-    def test_get_balance_after_transfer(self):
+    def test_get_balance_after_transfer(self, db_session):
         initial1 = random.randint(10,10000)
         account1 = models.Account(initial1)
         solde_depart1 = account1.balance
@@ -101,6 +111,6 @@ class TestGetBalance:
         self.transaction = models.Transaction()
         retrait = 100
 
-        self.transaction.transfer(expediteur=account1,amount=retrait,destinataire=account2)
+        self.transaction.transfer(expediteur=account1, amount=retrait, destinataire=account2, session=db_session)
         assert account1.get_balance() == solde_depart1 - retrait
         assert account2.get_balance() == solde_depart2 + retrait
