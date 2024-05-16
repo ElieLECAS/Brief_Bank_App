@@ -8,14 +8,14 @@ from sqlalchemy.orm import sessionmaker
 def db_session():
     engine = create_engine('sqlite:///:memory:')
     Session = sessionmaker(bind=engine)
-    session = Session()
+    db_session = Session()
     models.Base.metadata.create_all(engine)
-    yield session
-    session.close()
+    yield db_session
+    db_session.close()
 
 class TestGetBalance:
-    def setup_method(self):
-        self.account = models.Account()
+    # def setup_method(self):
+    #     self.account = models.Account()
 
     # Test_get_balance_initial
         # Vérifier le solde initial lorsqu'un nouveau compte est créé.
@@ -24,9 +24,9 @@ class TestGetBalance:
         # Assurer que le résultat est exact sans avoir effectué de transactions.
 
 
-    def test_get_balance_initial(self):
+    def test_get_balance_initial(self,db_session):
         initial = random.randint(0,1000000)
-        account_initial = models.Account(initial)
+        account_initial = models.Account(initial,db_session)
         assert account_initial.get_balance() == initial
         
 
@@ -40,7 +40,7 @@ class TestGetBalance:
 
     def test_get_balance_after_deposit(self, db_session):
         initial = random.randint(100,1000000)
-        account = models.Account(initial)
+        account = models.Account(initial, db_session)
         self.transaction = models.Transaction()
         solde_depart = account.balance
         depot = 5
@@ -59,7 +59,7 @@ class TestGetBalance:
 
     def test_get_balance_after_withdrawal(self, db_session):
         initial = random.randint(100,1000000)
-        account = models.Account(initial)
+        account = models.Account(initial, db_session)
         self.transaction = models.Transaction()
         solde_depart = account.balance
         retrait = random.randint(1,99)
@@ -77,7 +77,7 @@ class TestGetBalance:
 
     def test_get_balance_after_failed_withdrawal(self, db_session):
         initial = random.randint(10,100)
-        account = models.Account(initial)
+        account = models.Account(initial, db_session)
         self.transaction = models.Transaction()
         solde_depart = account.balance
         retrait = random.randint(initial+1,initial+100000)
@@ -100,11 +100,11 @@ class TestGetBalance:
         
     def test_get_balance_after_transfer(self, db_session):
         initial1 = random.randint(10,10000)
-        account1 = models.Account(initial1)
+        account1 = models.Account(initial1, db_session)
         solde_depart1 = account1.balance
 
         initial2 = random.randint(10,100)
-        account2 = models.Account(initial2)
+        account2 = models.Account(initial2, db_session)
         solde_depart2 = account2.balance
 
 

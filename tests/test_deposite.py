@@ -27,7 +27,7 @@ class TestDeposit:
             # 5.Vérifier que le session.commit() a été appelé.
 
     def test_deposit_normal(self, db_session):
-        account = models.Account(10)
+        account = models.Account(10, db_session)
         solde_depart = account.balance
         depot = 5
         test = self.transaction.deposit(account=account,amount=depot, session = db_session)
@@ -45,7 +45,7 @@ class TestDeposit:
             # 4.Vérifier que le session.commit() a été appelé.
 
     def test_deposit_negative_amount(self, db_session):
-        account = models.Account(10)
+        account = models.Account(10, db_session)
         solde_depart = account.balance
         depot = -5
         test = self.transaction.deposit(account=account,amount=depot, session = db_session)
@@ -64,7 +64,7 @@ class TestDeposit:
     
 
     def test_deposit_zero_amount(self, db_session):
-        account = models.Account(10)
+        account = models.Account(10, db_session)
         solde_depart = account.balance
         depot = 0
         test = self.transaction.deposit(account=account,amount=depot, session = db_session)
