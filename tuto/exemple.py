@@ -12,10 +12,10 @@ try:
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    account1 = Account()
-    account2 = Account()
-    account3 = Account()
-    account4 = Account()
+    account1 = Account(session=session)
+    account2 = Account(session=session)
+    account3 = Account(session=session)
+    account4 = Account(session=session)
 
     transaction1 = Transaction()
     transaction1.deposit(account1, 34.0, session)
