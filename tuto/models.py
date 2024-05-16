@@ -18,7 +18,7 @@ class Account(Base):
     def __init__(self, balance=0):
         self.balance = balance
         session.add(self)
-        # session.commit()
+        session.commit()
 
     def get_balance(self):
         print(self.balance)
@@ -41,7 +41,7 @@ class Transaction(Base):
         if amount > 0:
             account.balance += amount
             session.add(self)
-            # session.commit()
+            session.commit()
             print(f'Dépot de {amount}€ effectué')
             return True
         else:
@@ -56,7 +56,7 @@ class Transaction(Base):
         if amount > 0 and account.balance >= amount:
             account.balance -= amount
             session.add(self)
-            # session.commit()
+            session.commit()
             print(f'Retrait de {amount}€ validé')
             return True
         else:

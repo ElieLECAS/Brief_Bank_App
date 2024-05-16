@@ -1,6 +1,9 @@
 import pytest
 import tuto.models as models
 
+
+
+
 # Tests pour les Transferts (Transfer)
 
 class TestTransfers:
@@ -8,6 +11,7 @@ class TestTransfers:
         self.transaction = models.Transaction()
 
     # Test_transfer_normal
+
         # Effectuer un transfert entre deux comptes avec des soldes suffisants.
         # Vérifier que le montant est déduit du compte source.
         # Vérifier que le montant est ajouté au compte cible.
@@ -24,7 +28,7 @@ class TestTransfers:
 
         transfer = 50
         self.transaction.transfer(expediteur=account1,amount=transfer,destinataire=account2)
-        # assert test == True
+        
         assert account1.balance == solde_depart1 - transfer
         assert account2.balance == solde_depart2 + transfer
         # assert self.transaction.type == "Deposite"

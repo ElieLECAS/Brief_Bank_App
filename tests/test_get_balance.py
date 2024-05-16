@@ -3,8 +3,6 @@ import tuto.models as models
 import random
 
 
-
-
 class TestGetBalance:
     def setup_method(self):
         self.account = models.Account()

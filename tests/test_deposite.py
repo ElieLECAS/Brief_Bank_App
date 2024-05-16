@@ -3,8 +3,6 @@ import tuto.models as models
 
 
 
-# Tests pour les Dépots (Deposit)
-
 class TestDeposit:
     def setup_method(self):
         self.transaction = models.Transaction()
