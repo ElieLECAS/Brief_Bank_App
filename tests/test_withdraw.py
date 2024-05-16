@@ -9,7 +9,7 @@ class TestWithdraw:
     def setup_method(self):
         self.transaction = models.Transaction()
 
-    # Test_withdraw_normal
+    # Test_withdraw_normal 
 
         # 1.Effectuer un retrait avec un solde suffisant.
         # 2.Vérifier que le solde est correctement déduit.
