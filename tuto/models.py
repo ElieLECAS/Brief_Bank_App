@@ -22,6 +22,7 @@ class Account(Base):
 
     def get_balance(self):
         print(self.balance)
+        return self.balance
 
 class Transaction(Base):
     __tablename__ = 'transaction'
@@ -58,8 +59,6 @@ class Transaction(Base):
             # session.commit()
             print(f'Retrait de {amount}€ validé')
             return True
-        
-
         else:
             print(f'Retrait de {amount}€ annulé')
             return False
