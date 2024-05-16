@@ -10,7 +10,7 @@ on:
       - main
       - developp
 
-  jobs:
+  job:
     build:
       runs-on: ubuntu-latest
 
