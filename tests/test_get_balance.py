@@ -17,26 +17,10 @@ class TestGetBalance:
     # def setup_method(self):
     #     self.account = models.Account()
 
-    # Test_get_balance_initial
-        # Vérifier le solde initial lorsqu'un nouveau compte est créé.
-        # Créer un nouveau compte avec un solde initial spécifique.
-        # Utiliser get_balance pour vérifier que le solde retourné correspond au solde initial.
-        # Assurer que le résultat est exact sans avoir effectué de transactions.
-
-
     def test_get_balance_initial(self,db_session):
         initial = random.randint(0,1000000)
         account_initial = models.Account(initial,db_session)
         assert account_initial.get_balance() == initial
-        
-
-
-
-    # test_get_balance_after_deposit
-        # Vérifier le solde après un dépôt.
-        # Effectuer un dépôt sur un compte.
-        # Utiliser get_balance pour vérifier que le solde retourné inclut le montant déposé.
-        # Vérifier que le solde retourné est égal au solde initial plus le montant du dépôt.
 
     def test_get_balance_after_deposit(self, db_session):
         initial = random.randint(100,1000000)
@@ -47,16 +31,6 @@ class TestGetBalance:
         self.transaction.deposit(account=account,amount=depot, session=db_session)
         assert account.get_balance() == solde_depart + depot
 
-
-
-
-
-    # test_get_balance_after_withdrawal
-        # Vérifier le solde après un retrait.
-        # Effectuer un retrait sur un compte avec un solde suffisant.
-        # Utiliser get_balance pour vérifier que le solde retourné a été correctement déduit du montant retiré.
-        # Vérifier que le solde retourné est égal au solde initial moins le montant du retrait.
-
     def test_get_balance_after_withdrawal(self, db_session):
         initial = random.randint(100,1000000)
         account = models.Account(initial, db_session)
@@ -65,15 +39,6 @@ class TestGetBalance:
         retrait = random.randint(1,99)
         self.transaction.withdraw(account=account,amount=retrait, session=db_session)
         assert account.get_balance() == solde_depart - retrait
-
-
-
-    # test_get_balance_after_failed_withdrawal
-        # Vérifier le solde après une tentative de retrait échouée due à un solde insuffisant.
-        # Tenter de retirer un montant supérieur au solde disponible.
-        # Utiliser get_balance pour vérifier que le solde n'a pas changé
-        # Vérifier que le solde retourné est toujours égal au solde initial avant la tentative de retrait.
-
 
     def test_get_balance_after_failed_withdrawal(self, db_session):
         initial = random.randint(10,100)
