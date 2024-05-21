@@ -48,20 +48,6 @@ class TestGetBalance:
         retrait = random.randint(initial+1,initial+100000)
         self.transaction.withdraw(account=account,amount=retrait, session=db_session)
         assert account.get_balance() == solde_depart
-
-
-
-
-
-
-    # test_get_balance_after_transfer
-        # Vérifier le solde après un transfert entre deux comptes.
-        # Effectuer un transfert d'un montant spécifique d'un compte à un autre.
-        # Utiliser get_balance pour vérifier les soldes des deux comptes après le transfert.
-        # Pour le compte source, vérifier que le solde a diminué du montant transféré.
-        # Pour le compte cible, vérifier que le solde a augmenté du montant transféré.
-
-
         
     def test_get_balance_after_transfer(self, db_session):
         initial1 = random.randint(10,10000)
